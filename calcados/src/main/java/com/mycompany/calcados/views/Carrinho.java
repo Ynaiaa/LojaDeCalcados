@@ -4,9 +4,12 @@
  */
 package com.mycompany.calcados.views;
 
+import com.mycompany.calcados.classes.Clientes;
+import com.mycompany.calcados.dao.ClientesDAO;
 import com.mycompany.calcados.views.Relatorios;
 import com.mycompany.calcados.views.CadastroCliente;
 import com.mycompany.calcados.views.CadastroProduto;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -92,6 +95,11 @@ public class Carrinho extends javax.swing.JFrame {
         jLabel4.setText("Data");
 
         btnPesquisarCli.setText("Pesquisar");
+        btnPesquisarCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarCliActionPerformed(evt);
+            }
+        });
 
         try {
             txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -448,6 +456,33 @@ public class Carrinho extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Preencha os campos");
         }
     }//GEN-LAST:event_btnAdicionarItemActionPerformed
+
+    private void btnPesquisarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCliActionPerformed
+        // Pegando o valor para fazer a busca no bd
+        String cpf = txtCPF.getText();
+        
+        // chamar a DAO
+        ArrayList<Clientes> listarCarrinho = ClientesDAO.listarCarrinho(cpf);
+        
+        
+        DefaultTableModel modelo = (DefaultTableModel)tblCarrinho.getModel();
+        // Limpo a tabela
+        modelo.setRowCount(0);
+        
+        // Declarando as minhas variaveis
+        String nome = null;
+        String CPF  = null;
+        
+        for(Clientes item : listarCarrinho){
+            nome = item.getNome();
+            CPF = item.getCpf();
+        }
+        
+        if(nome != "" && nome != null){
+            lblNome.setText(nome);
+        }
+
+    }//GEN-LAST:event_btnPesquisarCliActionPerformed
 
     /**
      * @param args the command line arguments

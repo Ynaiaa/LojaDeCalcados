@@ -208,11 +208,11 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Nome", "CPF", "E-mail", "Genero", "CEP", "Rua", "N°", "Est. Civil"
+                "Nome", "CPF", "E-mail", "Genero", "CEP", "Rua", "N°", "Est. Civil"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -229,6 +229,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -263,6 +268,8 @@ public class CadastroCliente extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(cboEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(162, 162, 162)
                                 .addComponent(btnBusca))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,21 +285,15 @@ public class CadastroCliente extends javax.swing.JFrame {
                             .addComponent(btnIncluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(220, 220, 220)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(220, 220, 220)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(cboEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(220, 220, 220)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtEmail)
-                                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEmail)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -333,19 +334,19 @@ public class CadastroCliente extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
+                        .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
+                        .addGap(42, 42, 42)
                         .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))))
+                        .addGap(39, 39, 39))))
         );
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CADASTRO DE CLIENTES", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Rounded MT Bold", 0, 12))); // NOI18N
@@ -414,36 +415,44 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void mnuCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadastroClienteActionPerformed
         CadastroCliente janela = new CadastroCliente();
         janela.setVisible(true);
-        this.dispose();
+       
     }//GEN-LAST:event_mnuCadastroClienteActionPerformed
 
     private void mnuCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCarrinhoActionPerformed
         Carrinho janela = new Carrinho();
         janela.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_mnuCarrinhoActionPerformed
 
     private void mnuCadastroProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadastroProdutoActionPerformed
         CadastroProduto janela = new CadastroProduto();
         janela.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_mnuCadastroProdutoActionPerformed
 
     private void mnuRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRelatoriosActionPerformed
         Relatorios janela = new Relatorios();
         janela.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_mnuRelatoriosActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        DefaultTableModel modeloCli = (DefaultTableModel) tblClientes.getModel();
-
         int linhaSelecionada = tblClientes.getSelectedRow();
-        if(linhaSelecionada >= 0){
+        //int colunaSelecionada = tblClientes.getSelectedColumn();
+        DefaultTableModel modeloCli = (DefaultTableModel) tblClientes.getModel();
+        
+        // remover do bd
+        String cpf = tblClientes.getValueAt(linhaSelecionada,1).toString();
+        
+        boolean Retorno = ClientesDAO.excluir(cpf);
+        
+        if(Retorno){
+            // remove a linha da tabela
             modeloCli.removeRow(linhaSelecionada);
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Selecione uma linha!");
+            JOptionPane.showMessageDialog(rootPane, "Excluido com sucesso!");
+            
+        }else{
+              JOptionPane.showMessageDialog(rootPane, "Falha ao excluir!");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -474,7 +483,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (Retorno) {
             JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
         } else {
-            JOptionPane.showMessageDialog(null, "Erro ao fazer o cadastro.");
+            JOptionPane.showMessageDialog(null, "Erro ao fazer o cadastro!x");
         }
         
         
@@ -509,8 +518,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         // Chamar a busca DAO
         String Cpf = txtCPF.getText();
         
-        
-        ArrayList<Clientes> listar = ClientesDAO.listar(getCpf);
+        ArrayList<Clientes> listar = ClientesDAO.listar();
         
         DefaultTableModel modelo = (DefaultTableModel)tblClientes.getModel();
         // Limpo a tabela
@@ -529,6 +537,36 @@ public class CadastroCliente extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_btnBuscaActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        int linhaSelecionada = tblClientes.getSelectedRow();
+        int colunaSelecionada = tblClientes.getSelectedColumn();
+        
+        
+        String nomeColuna = tblClientes.getColumnName(colunaSelecionada);
+        if(nomeColuna == "E-mail"){
+            nomeColuna = "email";
+        }
+        
+        DefaultTableModel modeloCli = (DefaultTableModel) tblClientes.getModel();
+        
+        
+        
+        // remover do bd
+        String cpf = tblClientes.getValueAt(linhaSelecionada,1).toString();
+        String Valor = tblClientes.getValueAt(linhaSelecionada,colunaSelecionada).toString();
+        
+        boolean Retorno = ClientesDAO.alterar( Valor,cpf );
+        
+        if(Retorno){
+            // remove a linha da tabela
+            modeloCli.removeRow(linhaSelecionada);
+            JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
+            
+        }else{
+              JOptionPane.showMessageDialog(rootPane, "Falha ao alterar! " + nomeColuna + " " + Valor + " " + cpf);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments

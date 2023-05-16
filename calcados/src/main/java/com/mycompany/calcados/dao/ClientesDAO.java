@@ -58,7 +58,7 @@ public class ClientesDAO {
         return Retorno;
     } // Fim do metódo insert
     
-     public static ArrayList<Clientes> listar(String cpf){
+     public static ArrayList<Clientes> listar(){
         ArrayList<Clientes> busca = new ArrayList(); 
         Connection conexao = null;
         
@@ -71,8 +71,7 @@ public class ClientesDAO {
             conexao = DriverManager.getConnection(url, "root", "");
             
             //Passo 3 - Preparar o comando SQL
-           PreparedStatement comandoSQL = conexao.prepareStatement("SELECT * FROM clientes WHERE CPF =");
-           comandoSQL.setString(1, txtCpf.getText());
+           PreparedStatement comandoSQL = conexao.prepareStatement("SELECT * FROM clientes");
            
            // Passo 4 - Executar comando SQL
           ResultSet Rs_select = comandoSQL.executeQuery();
@@ -102,5 +101,109 @@ public class ClientesDAO {
         
         return busca;
     } // Fim do metodo de select
-     
+    
+    public static boolean excluir(String CPF){
+        boolean Retorno = false;
+        Connection conexao = null;
+        
+        try{
+            // Passo 1 - Carregar o drive
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/lojacalcados";
+            
+            // Passo 2 - Abrir a conexão
+            conexao = DriverManager.getConnection(url, "root", "");
+            
+            //Passo 3 - Preparar o comando SQL
+           PreparedStatement comandoSQL = conexao.prepareStatement("DELETE FROM clientes WHERE CPF =? ");
+           comandoSQL.setString(1, CPF);
+           
+           // Passo 4 - Executar comando SQL
+          int linhasAfetadas = comandoSQL.executeUpdate();
+          
+          if(linhasAfetadas>0){
+              Retorno = true;
+          }
+            
+        } catch (ClassNotFoundException ex) {
+           System.out.println("Erro ao carregar o Driver"); 
+        } catch (SQLException ex) {
+           System.out.println("Erro ao abrir a conexão");
+        }
+        
+        return Retorno;
+    } // Fim do metódo delete
+    
+        public static boolean alterar( String Valor_coluna, String CPF ){
+        boolean Retorno = false;
+        Connection conexao = null;
+        
+        try{
+            // Passo 1 - Carregar o drive
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/lojacalcados";
+            
+            // Passo 2 - Abrir a conexão
+            conexao = DriverManager.getConnection(url, "root", "");
+            
+            //Passo 3 - Preparar o comando SQL
+           PreparedStatement comandoSQL = conexao.prepareStatement(" UPDATE clientes SET email = ? WHERE CPF = ?");
+           
+           comandoSQL.setString(1, Valor_coluna);
+           comandoSQL.setString(2, CPF);
+           
+           // Passo 4 - Executar comando SQL
+          int linhasAfetadas = comandoSQL.executeUpdate();
+          
+          if(linhasAfetadas>0){
+              Retorno = true;
+          }
+            
+        } catch (ClassNotFoundException ex) {
+           System.out.println("Erro ao carregar o Driver"); 
+        } catch (SQLException ex) {
+           System.out.println("Erro ao abrir a conexão");
+        }
+        
+        return Retorno;
+    } // Fim do metódo update
+        
+     public static ArrayList<Clientes> listarCarrinho(String CPF){
+        ArrayList<Clientes> buscaC = new ArrayList(); 
+        Connection conexao = null;
+        
+        try{
+            // Passo 1 - Carregar o drive
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // Passo 2 - Abrir a conexão
+            String url = "jdbc:mysql://localhost:3306/lojacalcados";
+            conexao = DriverManager.getConnection(url, "root", "");
+            
+            //Passo 3 - Preparar o comando SQL
+           PreparedStatement comandoSQL = conexao.prepareStatement("SELECT * FROM clientes WHERE CPF = ?");
+           comandoSQL.setString(1, CPF);
+           
+           // Passo 4 - Executar comando SQL
+          ResultSet Rs_select = comandoSQL.executeQuery();
+          
+          if(Rs_select != null){
+              // Percorrendo o result e passando os valores a um obj
+              while(Rs_select.next()){
+                  Clientes select = new Clientes();
+                  select.setCpf(Rs_select.getString("CPF"));
+                  select.setNome(Rs_select.getString("nome"));
+                  
+                  buscaC.add(select);
+              }
+          }
+            
+        } catch (ClassNotFoundException ex) {
+           System.out.println("Erro ao carregar o Driver"); 
+        } catch (SQLException ex) {
+           System.out.println("Erro ao abrir a conexão");
+        }
+        
+        return buscaC;
+    } // Fim do metodo de select com parametro
 }
