@@ -31,7 +31,7 @@ public class Clientes {
         this.cep = cep;
         this.rua = rua;
         this.num_casa = num_casa;
-    }
+     }
     
     public String getCpf() {
         return cpf;

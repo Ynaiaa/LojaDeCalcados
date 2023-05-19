@@ -462,7 +462,7 @@ public class Carrinho extends javax.swing.JFrame {
         String cpf = txtCPF.getText();
         
         // chamar a DAO
-        ArrayList<Clientes> listarCarrinho = ClientesDAO.listarCarrinho(cpf);
+        ArrayList<Clientes> listarCarrinho = ClientesDAO.listarBusca(cpf);
         
         
         DefaultTableModel modelo = (DefaultTableModel)tblCarrinho.getModel();

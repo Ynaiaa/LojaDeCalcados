@@ -518,45 +518,68 @@ public class CadastroCliente extends javax.swing.JFrame {
         // Chamar a busca DAO
         String Cpf = txtCPF.getText();
         
-        ArrayList<Clientes> listar = ClientesDAO.listar();
-        
         DefaultTableModel modelo = (DefaultTableModel)tblClientes.getModel();
         // Limpo a tabela
         modelo.setRowCount(0);
-        // Percorrer a lista e adicionar a tabela
-        for(Clientes item : listar){
-            modelo.addRow(new String[]{
-                                       String.valueOf(item.getNome()),
-                                       String.valueOf(item.getCpf()),
-                                       String.valueOf(item.getEmail()),
-                                       String.valueOf(item.getGenero()),
-                                       String.valueOf(item.getCep()),
-                                       String.valueOf(item.getRua()),
-                                       String.valueOf(item.getNum_casa()),
-                                       String.valueOf(item.getEst_civil())
-            });
+        
+        if(!Cpf.replace(".", "").replace("-", "").trim().equals("")){
+            ArrayList<Clientes> listarBusca = ClientesDAO.listarBusca(Cpf);
+            
+            // Percorrer a lista e adicionar a tabela
+            for(Clientes item : listarBusca){
+                modelo.addRow(new String[]{
+                                           String.valueOf(item.getNome()),
+                                           String.valueOf(item.getCpf()),
+                                           String.valueOf(item.getEmail()),
+                                           String.valueOf(item.getGenero()),
+                                           String.valueOf(item.getCep()),
+                                           String.valueOf(item.getRua()),
+                                           String.valueOf(item.getNum_casa()),
+                                           String.valueOf(item.getEst_civil())
+                });
+            }
         }
+        else{
+            ArrayList<Clientes> listar = ClientesDAO.listar();
+
+            // Percorrer a lista e adicionar a tabela
+            for(Clientes item : listar){
+                modelo.addRow(new String[]{
+                                           String.valueOf(item.getNome()),
+                                           String.valueOf(item.getCpf()),
+                                           String.valueOf(item.getEmail()),
+                                           String.valueOf(item.getGenero()),
+                                           String.valueOf(item.getCep()),
+                                           String.valueOf(item.getRua()),
+                                           String.valueOf(item.getNum_casa()),
+                                           String.valueOf(item.getEst_civil())
+                });
+            }
+       }
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         int linhaSelecionada = tblClientes.getSelectedRow();
         int colunaSelecionada = tblClientes.getSelectedColumn();
         
-        
-        String nomeColuna = tblClientes.getColumnName(colunaSelecionada);
-        if(nomeColuna == "E-mail"){
-            nomeColuna = "email";
-        }
+  
         
         DefaultTableModel modeloCli = (DefaultTableModel) tblClientes.getModel();
-        
-        
-        
-        // remover do bd
+ 
+        // pegando os valores das colunas
+        String nome = tblClientes.getValueAt(linhaSelecionada,0).toString();
         String cpf = tblClientes.getValueAt(linhaSelecionada,1).toString();
-        String Valor = tblClientes.getValueAt(linhaSelecionada,colunaSelecionada).toString();
+        String email = tblClientes.getValueAt(linhaSelecionada,2).toString();
+        String genero = tblClientes.getValueAt(linhaSelecionada,3).toString();
+        String cep = tblClientes.getValueAt(linhaSelecionada,4).toString();
+        String rua = tblClientes.getValueAt(linhaSelecionada,5).toString();
+        String numero = tblClientes.getValueAt(linhaSelecionada,6).toString();
+        String est_civil = tblClientes.getValueAt(linhaSelecionada,7).toString();
+        int Numero      =Integer.parseInt(numero);
+        //String Valor = tblClientes.getValueAt(linhaSelecionada,colunaSelecionada).toString();
         
-        boolean Retorno = ClientesDAO.alterar( Valor,cpf );
+        Clientes obj = new Clientes(cpf, nome, email, genero, est_civil, cep, rua, Numero);
+        boolean Retorno = ClientesDAO.alterar(obj);
         
         if(Retorno){
             // remove a linha da tabela
@@ -564,7 +587,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Alterado com sucesso!");
             
         }else{
-              JOptionPane.showMessageDialog(rootPane, "Falha ao alterar! " + nomeColuna + " " + Valor + " " + cpf);
+              JOptionPane.showMessageDialog(rootPane, "Falha ao alterar!");
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
