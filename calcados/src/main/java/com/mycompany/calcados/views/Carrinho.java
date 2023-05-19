@@ -121,7 +121,7 @@ public class Carrinho extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPesquisarCli, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                        .addComponent(btnPesquisarCli, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -199,7 +199,7 @@ public class Carrinho extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtQTD, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                        .addGap(0, 101, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -236,7 +236,7 @@ public class Carrinho extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CPF", "Nome", "Produto", "QTD", "Preço"
+                "CPF", "Nome", "Produto", "QTD", "Preço", "Data"
             }
         ));
         tblCarrinho.setToolTipText("");
@@ -281,7 +281,12 @@ public class Carrinho extends javax.swing.JFrame {
                 .addGap(0, 21, Short.MAX_VALUE))
         );
 
-        btnPagamento.setText("PAGAMENTO");
+        btnPagamento.setText("FINALIZAR");
+        btnPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagamentoActionPerformed(evt);
+            }
+        });
 
         btnCancelarVenda.setText("CANCELAR VENDA");
 
@@ -308,7 +313,7 @@ public class Carrinho extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(btnPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(btnCancelarVenda)
                 .addGap(24, 24, 24))
         );
@@ -384,7 +389,7 @@ public class Carrinho extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -443,18 +448,24 @@ public class Carrinho extends javax.swing.JFrame {
        String CPF = txtCPF.getText();
        String QTD = txtQTD.getText();
        
+     ArrayList<Clientes> buscaNotaF = ClientesDAO.listarBusca(CPF);
      
-       if(CPF != "" && QTD != "" ){
-        DefaultTableModel modeloProd = (DefaultTableModel) tblCarrinho.getModel();
-        modeloProd.addRow(new String []{CPF,
-                                        "",
-                                        "",
-                                        QTD,
-                                        ""
-                                        });
-        }else{
-            JOptionPane.showMessageDialog(this, "Preencha os campos");
-        }
+        if(CPF != "" && QTD != "" ){
+        // Percorrer a lista e adicionar a tabela
+            DefaultTableModel modeloProd = (DefaultTableModel) tblCarrinho.getModel();
+            for(Clientes item : buscaNotaF){
+                modeloProd.addRow(new String[]{
+                                           String.valueOf(item.getCpf()),
+                                           String.valueOf(item.getNome()),
+                                           "",
+                                           QTD,
+                                           "",
+                                           ""
+                });
+            }
+       }else{
+           JOptionPane.showMessageDialog(this, "Preencha os campos CPF e QTD");
+       }
     }//GEN-LAST:event_btnAdicionarItemActionPerformed
 
     private void btnPesquisarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCliActionPerformed
@@ -483,6 +494,10 @@ public class Carrinho extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnPesquisarCliActionPerformed
+
+    private void btnPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPagamentoActionPerformed
 
     /**
      * @param args the command line arguments
